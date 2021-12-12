@@ -10,17 +10,17 @@ function Header() {
         </Link>
         <ul className="nav navbar-nav pull-xs-right">
           <li className="nav-item">
-            <NavLink to={"/"} className="nav-link" exact>
+            <NavLink to={"/"} className="nav-link">
               Home
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/login"} className="nav-link" exact>
+            <NavLink to={"/login"} className="nav-link">
               Sign in
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink to={"/register"} className="nav-link" exact>
+            <NavLink to={"/register"} className="nav-link">
               Sing Up
             </NavLink>
           </li>
