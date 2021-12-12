@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import useFetch from "hooks/useFetch";
+import { useEffect } from "react/cjs/react.development";
+import useLocalStorage from "hooks/useLocalStorage";
 
 
 function Authentication({isLogin}) { 
@@ -9,10 +11,15 @@ const pageTitle = isLogin ? 'Sign In' : 'Sign Up'
 const descriptionLink = isLogin ? '/register' : '/login'
 const descriptionText = isLogin ? 'Need an account?' : 'Have an account?'
 const apiUrl = isLogin ? '/users/login' : '/users'
+
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
+
+
   const [{isLoading, error, response}, doFetch] = useFetch(apiUrl)
+  const [token, setToken] = useLocalStorage('token')
   console.log('useFetch', isLoading, error, response)
 
   const handleSubmit = event => {
@@ -27,6 +34,17 @@ const apiUrl = isLogin ? '/users/login' : '/users'
     })
   }
 
+  useEffect(() => {
+    if(!response){
+      return
+    }
+    setToken(response.user.token)
+    setIsSuccessfullSubmit(true)
+  }, [response])
+
+  if(isSuccessfullSubmit){
+    return <Navigate to='/'/>
+  }
   return (
     <div className="auth-page">
       <div className="container page">
