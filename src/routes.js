@@ -9,8 +9,8 @@ function MainRoutes() {
     return (
         <Routes>
             <Route path="/" element={<GlobalFeed/>} exact />
-            <Route path="/login" element={<Authentication/>} />
-            <Route path="/register" element={<Authentication/>} />
+            <Route path="/login" element={<Authentication isLogin={true}/>} />
+            <Route path="/register" element={<Authentication isLogin={false}/>} />
             <Route path="/articles/:slug" element={<Article/>} />
         </Routes>
     )
