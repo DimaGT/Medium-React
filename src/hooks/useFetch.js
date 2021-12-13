@@ -27,7 +27,7 @@ function useFetch(url) {
         setError(error.response.data)
         setIsLoading(false)
       })
-  }, [isLoading])
+  }, [isLoading, options, url])
 
   return [{isLoading, response, error}, doFetch]
 }

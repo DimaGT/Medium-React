@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect, useState } from "react/cjs/react.development";
 
 function useLocalStorage(key, initialValue = "") {
@@ -8,7 +7,7 @@ function useLocalStorage(key, initialValue = "") {
 
   useEffect(() => {
     localStorage.setItem(key, value);
-  }, [value]);
+  }, [value, key]);
 
   return [value, setValue];
 }
