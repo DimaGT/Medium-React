@@ -4,6 +4,7 @@ import useFetch from "hooks/useFetch";
 import { useEffect } from "react/cjs/react.development";
 import useLocalStorage from "hooks/useLocalStorage";
 import {CurrentUserContext} from "contexts/currentUser";
+import BackendErrorMessages from "./components/BackendErrorMessages";
 
 function Authentication({isLogin}) { 
 
@@ -48,7 +49,7 @@ const apiUrl = isLogin ? '/users/login' : '/users'
       isLoading: false,
       currentUser: response.user
     }))
-  }, [response, setToken])
+  }, [response, setToken, setCurrentUserState])
 
   if(isSuccessfullSubmit){
     return <Navigate to='/'/>
@@ -63,6 +64,7 @@ const apiUrl = isLogin ? '/users/login' : '/users'
               <Link to={descriptionLink}>{descriptionText}</Link>
             </p>
             <form onSubmit={handleSubmit}>
+              {error && <BackendErrorMessages backendErrors={error.errors}/>}
               <fieldset>
                 {!isLogin && (
                   <fieldset className="form-group">
