@@ -3,56 +3,54 @@ import { Link, Navigate } from "react-router-dom";
 import useFetch from "hooks/useFetch";
 import { useEffect } from "react/cjs/react.development";
 import useLocalStorage from "hooks/useLocalStorage";
-import {CurrentUserContext} from "contexts/currentUser";
+import { CurrentUserContext } from "contexts/currentUser";
 import BackendErrorMessages from "./components/BackendErrorMessages";
 
-function Authentication({isLogin}) { 
+function Authentication({ isLogin }) {
+  const pageTitle = isLogin ? "Sign In" : "Sign Up";
+  const descriptionLink = isLogin ? "/register" : "/login";
+  const descriptionText = isLogin ? "Need an account?" : "Have an account?";
+  const apiUrl = isLogin ? "/users/login" : "/users";
 
-const pageTitle = isLogin ? 'Sign In' : 'Sign Up'
-const descriptionLink = isLogin ? '/register' : '/login'
-const descriptionText = isLogin ? 'Need an account?' : 'Have an account?'
-const apiUrl = isLogin ? '/users/login' : '/users'
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false);
 
-  const [username, setUsername] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [isSuccessfullSubmit, setIsSuccessfullSubmit] = useState(false)
+  const [{ isLoading, error, response }, doFetch] = useFetch(apiUrl);
+  const [token, setToken] = useLocalStorage("token");
+  const [currentUserState, setCurrentUserState] =
+    useContext(CurrentUserContext);
+  console.log("useFetch", isLoading, error, response);
 
-
-  const [{isLoading, error, response}, doFetch] = useFetch(apiUrl)
-  const [token, setToken] = useLocalStorage('token')
-  const [currentUserState, setCurrentUserState] = useContext(CurrentUserContext)
-  console.log(currentUserState)
-  console.log('useFetch', isLoading, error, response)
-
-  const handleSubmit = event => {
-    event.preventDefault()
-    const user = isLogin ? {email, password} : {email, password, username}
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const user = isLogin ? { email, password } : { username, email, password };
 
     doFetch({
-      method: 'post',
+      method: "post",
       data: {
-        user
-      }
-    })
-  }
+        user,
+      },
+    });
+  };
 
   useEffect(() => {
-    if(!response){
-      return
+    if (!response) {
+      return;
     }
-    setToken(response.user.token)
-    setIsSuccessfullSubmit(true)
-    setCurrentUserState(state => ({
+    setToken(response.user.token);
+    setIsSuccessfullSubmit(true);
+    setCurrentUserState((state) => ({
       ...state,
       isLoggedIn: true,
       isLoading: false,
-      currentUser: response.user
-    }))
-  }, [response, setToken, setCurrentUserState])
+      currentUser: response.user,
+    }));
+  }, [response, setToken, setCurrentUserState]);
 
-  if(isSuccessfullSubmit){
-    return <Navigate to='/'/>
+  if (isSuccessfullSubmit) {
+    return <Navigate to="/" />;
   }
   return (
     <div className="auth-page">
@@ -64,18 +62,18 @@ const apiUrl = isLogin ? '/users/login' : '/users'
               <Link to={descriptionLink}>{descriptionText}</Link>
             </p>
             <form onSubmit={handleSubmit}>
-              {error && <BackendErrorMessages backendErrors={error.errors}/>}
+              {error && <BackendErrorMessages backendErrors={error.errors} />}
               <fieldset>
                 {!isLogin && (
                   <fieldset className="form-group">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    placeholder="Username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </fieldset>
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                    />
+                  </fieldset>
                 )}
                 <fieldset className="form-group">
                   <input
