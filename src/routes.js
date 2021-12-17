@@ -1,5 +1,5 @@
 import React from 'react'
-import {Routes, Route} from 'react-router-dom'
+import {Routes, Route, useLocation} from 'react-router-dom'
 import GlobalFeed from 'pages/globalFeed'
 import Article from 'pages/article'
 import Authentication from 'pages/authentication'

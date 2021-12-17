@@ -1,5 +1,4 @@
 import { useEffect, useContext } from "react";
-
 import { CurrentUserContext } from "contexts/currentUser";
 import useFetch from "hooks/useFetch";
 import useLocalStorage from "hooks/useLocalStorage";

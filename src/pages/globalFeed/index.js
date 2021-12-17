@@ -1,15 +1,26 @@
 import {useEffect} from 'react'
 import useFetch from "hooks/useFetch";
 import { Feed } from 'components/Feed';
+import Pagination from 'components/Pagination';
+import { useLocation  } from 'react-router-dom';
+import { getPaginator, limit } from 'utils';
+import { stringify } from 'query-string';
 
 const GlobalFeed = () => {
-    const apiUrl = '/articles?limit=10&offset=0'
+    //pagination pages count generator
+    const {offset, currentPage} = getPaginator(useLocation().search)
+    const stringifiedParams = stringify({
+        limit,
+        offset
+    })
+    const apiUrl = `/articles?${stringifiedParams}`
+
+    //api request
     const [{response, isLoading, error}, doFetch] = useFetch(apiUrl)
-    console.log(response);
 
     useEffect(() => {
         doFetch()
-    }, [doFetch])
+    }, [doFetch, currentPage])
     return (
         <div className="home-page">
             <div className="banner">
@@ -24,7 +35,10 @@ const GlobalFeed = () => {
                         {isLoading && <div>Loading...</div>}
                         {error && <div>Some error happened</div>}
                         {!isLoading && response && (
-                            <Feed articles={response.articles}/>
+                            <>
+                                <Feed articles={response.articles}/>
+                                <Pagination total={response.articlesCount} limit={limit} url={'/'} currentPage={currentPage}/>
+                            </>
                         )}
                     </div>
                     <div className="col-md-3">
