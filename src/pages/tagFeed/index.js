@@ -10,12 +10,14 @@ import Loading from 'components/Loading';
 import ErrorMessage from 'components/ErrorMessage';
 import FeedTogler from 'components/FeedTogler';
 
-const GlobalFeed = () => {
+const TagFeed = () => {
+    const tagName = 'mock'
     //pagination pages count generator
     const {offset, currentPage} = getPaginator(useLocation().search)
     const stringifiedParams = stringify({
         limit,
-        offset
+        offset,
+        tag: tagName
     })
     const apiUrl = `/articles?${stringifiedParams}`
 
@@ -24,7 +26,7 @@ const GlobalFeed = () => {
 
     useEffect(() => {
         doFetch()
-    }, [doFetch, currentPage])
+    }, [doFetch, currentPage, tagName])
     return (
         <div className="home-page">
             <div className="banner">
@@ -55,4 +57,4 @@ const GlobalFeed = () => {
     )
 }
 
-export default GlobalFeed
+export default TagFeed
