@@ -5,6 +5,9 @@ import Pagination from 'components/Pagination';
 import { useLocation  } from 'react-router-dom';
 import { getPaginator, limit } from 'utils';
 import { stringify } from 'query-string';
+import PopularTags from 'components/PopularTags';
+import Loading from 'components/Loading';
+import ErrorMessage from 'components/ErrorMessage';
 
 const GlobalFeed = () => {
     //pagination pages count generator
@@ -32,8 +35,8 @@ const GlobalFeed = () => {
             <div className="container page">
                 <div className="row">
                     <div className="col-md-9">
-                        {isLoading && <div>Loading...</div>}
-                        {error && <div>Some error happened</div>}
+                        {isLoading && <Loading/>}
+                        {error && <ErrorMessage/>}
                         {!isLoading && response && (
                             <>
                                 <Feed articles={response.articles}/>
@@ -42,7 +45,7 @@ const GlobalFeed = () => {
                         )}
                     </div>
                     <div className="col-md-3">
-                        Popular Tags
+                        <PopularTags />
                     </div>
                 </div>
             </div>
