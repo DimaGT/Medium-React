@@ -4,7 +4,7 @@ import useFetch from "hooks/useFetch";
 import { useEffect } from "react/cjs/react.development";
 import useLocalStorage from "hooks/useLocalStorage";
 import { CurrentUserContext } from "contexts/currentUser";
-import BackendErrorMessages from "./components/BackendErrorMessages";
+import BackendErrorMessages from "components/BackendErrorMessages";
 
 function Authentication({ isLogin }) {
   const pageTitle = isLogin ? "Sign In" : "Sign Up";

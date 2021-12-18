@@ -5,12 +5,14 @@ import Article from 'pages/article'
 import Authentication from 'pages/authentication'
 import TagFeed from 'pages/tagFeed'
 import YourFeed from 'pages/yourFeed'
+import CreateArticle from 'pages/createArticle'
 
 
 function MainRoutes() {
     return (
         <Routes>
             <Route path="/" element={<GlobalFeed/>} exact />
+            <Route path="/articles/new" element={<CreateArticle/>} />
             <Route path="/feed" element={<YourFeed/>} />
             <Route path="/tags/:slug" element={<TagFeed/>} />
             <Route path="/login" element={<Authentication isLogin={true}/>} />
@@ -19,5 +21,6 @@ function MainRoutes() {
         </Routes>
     )
 }
+
 
 export default MainRoutes
