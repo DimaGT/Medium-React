@@ -11,13 +11,14 @@ import ErrorMessage from 'components/ErrorMessage';
 import FeedTogler from 'components/FeedTogler';
 
 const TagFeed = () => {
-    const tagName = 'mock'
     //pagination pages count generator
     const {offset, currentPage} = getPaginator(useLocation().search)
+    const slugSplit = useLocation().pathname.split("/");
+    const slug = slugSplit[slugSplit.length - 1];
     const stringifiedParams = stringify({
         limit,
         offset,
-        tag: tagName
+        tag: slug
     })
     const apiUrl = `/articles?${stringifiedParams}`
 
@@ -26,7 +27,7 @@ const TagFeed = () => {
 
     useEffect(() => {
         doFetch()
-    }, [doFetch, currentPage, tagName])
+    }, [doFetch, currentPage, slug])
     return (
         <div className="home-page">
             <div className="banner">
@@ -38,7 +39,7 @@ const TagFeed = () => {
             <div className="container page">
                 <div className="row">
                     <div className="col-md-9">
-                        <FeedTogler tagName={'foo'}/>
+                        <FeedTogler tagName={slug}/>
                         {isLoading && <Loading/>}
                         {error && <ErrorMessage/>}
                         {!isLoading && response && (

@@ -7,11 +7,11 @@ import Loading from './Loading'
 
 const PopularTags = () => {
     const [{response, isLoading, error}, doFetch] = useFetch('/tags')
-    const tags = response.tags.length !== 0 ? response.tags : ['test', 'mock', 'training', 'cofee', 'shop', 'animals', 'earth', 'flowers', 'books'] 
 
     useEffect(() => {
         doFetch()
     }, [doFetch])
+
 
     if(isLoading || !response) {
         return <Loading/>
@@ -19,6 +19,8 @@ const PopularTags = () => {
     if(error) {
         return <ErrorMessage/>
     }
+    const tags = response.tags.length !== 0 ? response.tags : ['implementations', 'codebaseShow', 'welcome', 'introduction', 'test', 'mock', 'training', 'cofee', 'shop', 'animals', 'earth', 'flowers', 'books'] 
+
     return (
         <div className="sidebar">
             <p>Popular tags</p>

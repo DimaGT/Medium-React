@@ -10,24 +10,22 @@ import Loading from 'components/Loading';
 import ErrorMessage from 'components/ErrorMessage';
 import FeedTogler from 'components/FeedTogler';
 
-const GlobalFeed = () => {
+const YourFeed = () => {
     //pagination pages count generator
     const {offset, currentPage} = getPaginator(useLocation().search)
     const currentUrl = useLocation().pathname
-    const slugSplit = useLocation().pathname.split("/");
-    const slug = slugSplit[slugSplit.length - 1];
     const stringifiedParams = stringify({
         limit,
-        offset,
+        offset
     })
-    const apiUrl = `/articles?${stringifiedParams}`
+    const apiUrl = `/articles/feed?${stringifiedParams}`
 
     //api request
     const [{response, isLoading, error}, doFetch] = useFetch(apiUrl)
 
     useEffect(() => {
         doFetch()
-    }, [doFetch, currentPage, slug])
+    }, [doFetch, currentPage])
     return (
         <div className="home-page">
             <div className="banner">
@@ -39,7 +37,7 @@ const GlobalFeed = () => {
             <div className="container page">
                 <div className="row">
                     <div className="col-md-9">
-                        <FeedTogler tagName={slug}/>
+                    <FeedTogler/>
                         {isLoading && <Loading/>}
                         {error && <ErrorMessage/>}
                         {!isLoading && response && (
@@ -58,4 +56,4 @@ const GlobalFeed = () => {
     )
 }
 
-export default GlobalFeed
+export default YourFeed
