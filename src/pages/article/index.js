@@ -55,7 +55,7 @@ useEffect(() => {
   if (isSuccessfullDelete) {
     return <Navigate to={"/"} />;
   }
-  return (
+ return (
     <div className="article-page">
       <div className="banner">
         {!fetchArticleIsLoading && fetchArticleResponse && (
@@ -80,8 +80,8 @@ useEffect(() => {
               {isAuthor() && (
                 <span>
                   <Link
-                    className="btn btn-outline-secondary btn-sm"
                     to={`/articles/${fetchArticleResponse.article.slug}/edit`}
+                    className="btn btn-outline-secondary btn-sm"
                   >
                     <i className="ion-edit"></i>
                     Edit Article
@@ -104,17 +104,17 @@ useEffect(() => {
         {fetchArticleError && <ErrorMessage />}
         {!fetchArticleIsLoading && fetchArticleResponse && (
           <div className="row article-content">
-            <div className="col-xl-12">
-              <div>
-                <p>{fetchArticleResponse.article.body}</p>
-              </div>
-              <TagList tags={fetchArticleResponse.article.tagList} />
+            <div>
+              <p>{fetchArticleResponse.article.body}</p>
             </div>
+            <TagList tags={fetchArticleResponse.article.tagList} />
           </div>
         )}
+        <hr />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Article;
+export default Article
+

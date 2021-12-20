@@ -7,6 +7,7 @@ import TagFeed from 'pages/tagFeed'
 import YourFeed from 'pages/yourFeed'
 import CreateArticle from 'pages/createArticle'
 import EditArticle from 'pages/editArticle'
+import Settings from 'pages/settings'
 
 
 function MainRoutes() {
@@ -14,6 +15,7 @@ function MainRoutes() {
         <Routes>
             <Route path="/" element={<GlobalFeed/>} exact />
             <Route path="/articles/new" element={<CreateArticle/>} />
+            <Route path="/settings" element={<Settings/>} />
             <Route path="/articles/:slug/edit" element={<EditArticle/>} />
             <Route path="/feed" element={<YourFeed/>} />
             <Route path="/tags/:slug" element={<TagFeed/>} />
