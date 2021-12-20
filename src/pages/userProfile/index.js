@@ -2,10 +2,12 @@ import useFetch from "hooks/useFetch";
 import React from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useEffect } from "react/cjs/react.development";
+import UserArticles from "./components/userArticles";
 
 const UserProfile = () => {
   const slugSplit = useLocation().pathname.split("/");
   const isFavorites = useLocation().pathname.includes("favorites");
+  const location = useLocation()
   const slug = isFavorites
     ? slugSplit[slugSplit.length - 2]
     : slugSplit[slugSplit.length - 1];
@@ -59,7 +61,7 @@ const UserProfile = () => {
                 </li>
               </ul>
             </div>
-            {/* <UserArticles username={response.profile.username} location={location} isFavorites={isFavorites}/> */}
+            <UserArticles username={response.profile.username} location={location} isFavorites={isFavorites} url={location.pathname}/>
           </div>
         </div>
       </div>
