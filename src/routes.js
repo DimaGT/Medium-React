@@ -8,12 +8,15 @@ import YourFeed from 'pages/yourFeed'
 import CreateArticle from 'pages/createArticle'
 import EditArticle from 'pages/editArticle'
 import Settings from 'pages/settings'
+import UserProfile from 'pages/userProfile'
 
 
 function MainRoutes() {
     return (
         <Routes>
             <Route path="/" element={<GlobalFeed/>} exact />
+            <Route path="/profiles/:slug" element={<UserProfile/>} />
+            <Route path="/profiles/:slug/favorites" element={<UserProfile/>} />
             <Route path="/articles/new" element={<CreateArticle/>} />
             <Route path="/settings" element={<Settings/>} />
             <Route path="/articles/:slug/edit" element={<EditArticle/>} />
